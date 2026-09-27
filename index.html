@@ -41,7 +41,6 @@
         <li><a href="#home" class="nav-link is-active">Home</a></li>
         <li><a href="#about" class="nav-link">About</a></li>
         <li><a href="#gallery" class="nav-link">Gallery</a></li>
-        <li><a href="#studio" class="nav-link">Designs</a></li>
         <li><a href="#press-ons" class="nav-link">Press-Ons</a></li>
         <li><a href="#contact" class="nav-link">Contact</a></li>
       </ul>
@@ -66,7 +65,7 @@
         <p class="tagline">Tiny artist.<br />Big creativity.<span class="tag-heart" aria-hidden="true">♡</span></p>
         <span class="rule" aria-hidden="true"></span>
         <p class="hero-meta">Creative nail art &nbsp;|&nbsp; Custom designs<br />Press-on inspiration</p>
-        <a class="btn btn-primary" href="#studio">Explore my designs <span aria-hidden="true">›</span></a>
+        <a class="btn btn-primary" href="#gallery">Explore my designs <span aria-hidden="true">›</span></a>
       </div>
 
       <figure class="hero-media reveal">
@@ -92,17 +91,6 @@
         </span>
         <h3>Nail Gallery</h3>
         <p>See my latest creations</p>
-      </a>
-
-      <a class="quick-card reveal" href="#studio">
-        <span class="quick-icon i-lilac">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-            <path d="M9.5 3h5v4.2l1.6 2.4a3 3 0 0 1 .5 1.7V19a2 2 0 0 1-2 2h-5.2a2 2 0 0 1-2-2v-7.7a3 3 0 0 1 .5-1.7l1.6-2.4z" />
-            <path d="M7.4 12.5h9.2" />
-          </svg>
-        </span>
-        <h3>Design Studio</h3>
-        <p>Get inspired</p>
       </a>
 
       <a class="quick-card reveal" href="#press-ons">
@@ -240,126 +228,67 @@
     </div>
   </section>
 
-  <!-- ============ DESIGN STUDIO ============ -->
-  <section class="studio section" id="studio">
-    <div class="shell">
-      <header class="section-head reveal">
-        <p class="eyebrow">Get inspired</p>
-        <h2 class="h2-mixed">Design <span class="script">Studio</span></h2>
-        <p class="section-sub">Mix a shape, a color and a finish — then send it to me as a request.</p>
-      </header>
-
-      <div class="studio-grid">
-        <div class="studio-preview reveal">
-          <svg id="nailPreview" viewBox="0 0 320 260" role="img" aria-labelledby="previewTitle">
-            <title id="previewTitle">Preview of the selected nail design</title>
-            <defs>
-              <linearGradient id="shine" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#ffffff" stop-opacity=".55" />
-                <stop offset="45%" stop-color="#ffffff" stop-opacity="0" />
-              </linearGradient>
-              <pattern id="dots" width="12" height="12" patternUnits="userSpaceOnUse">
-                <circle cx="6" cy="6" r="2.1" fill="#2c2129" />
-              </pattern>
-              <pattern id="sparkle" width="10" height="10" patternUnits="userSpaceOnUse">
-                <circle cx="3" cy="3" r="1" fill="#ffffff" opacity=".85" />
-                <circle cx="8" cy="7" r="1.4" fill="#ffffff" opacity=".6" />
-              </pattern>
-              <pattern id="stripes" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                <rect width="4" height="10" fill="#d9b25f" opacity=".9" />
-              </pattern>
-            </defs>
-            <g id="nailGroup"></g>
-          </svg>
-          <p class="studio-readout" id="studioReadout" aria-live="polite"></p>
-        </div>
-
-        <div class="studio-controls reveal">
-          <fieldset>
-            <legend>Shape</legend>
-            <div class="opt-row" data-group="shape">
-              <button class="opt is-active" type="button" aria-pressed="true" data-value="almond">Almond</button>
-              <button class="opt" type="button" aria-pressed="false" data-value="square">Square</button>
-              <button class="opt" type="button" aria-pressed="false" data-value="coffin">Coffin</button>
-              <button class="opt" type="button" aria-pressed="false" data-value="round">Round</button>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Color</legend>
-            <div class="opt-row swatches" data-group="color">
-              <button class="swatch is-active" type="button" aria-pressed="true" data-value="#f2c7d2" style="--sw:#f2c7d2" aria-label="Ballet pink"></button>
-              <button class="swatch" type="button" aria-pressed="false" data-value="#e8a0b8" style="--sw:#e8a0b8" aria-label="Bubblegum"></button>
-              <button class="swatch" type="button" aria-pressed="false" data-value="#c9b6e4" style="--sw:#c9b6e4" aria-label="Lavender"></button>
-              <button class="swatch" type="button" aria-pressed="false" data-value="#f6e7d8" style="--sw:#f6e7d8" aria-label="Nude"></button>
-              <button class="swatch" type="button" aria-pressed="false" data-value="#a7cfd6" style="--sw:#a7cfd6" aria-label="Mint blue"></button>
-              <button class="swatch" type="button" aria-pressed="false" data-value="#8a4f72" style="--sw:#8a4f72" aria-label="Plum"></button>
-            </div>
-          </fieldset>
-
-          <fieldset>
-            <legend>Finish</legend>
-            <div class="opt-row" data-group="finish">
-              <button class="opt is-active" type="button" aria-pressed="true" data-value="plain">Glossy</button>
-              <button class="opt" type="button" aria-pressed="false" data-value="dots">Polka dots</button>
-              <button class="opt" type="button" aria-pressed="false" data-value="sparkle">Sparkle</button>
-              <button class="opt" type="button" aria-pressed="false" data-value="stripes">Gold stripes</button>
-            </div>
-          </fieldset>
-
-          <div class="studio-actions">
-            <button class="btn btn-primary" id="studioSurprise" type="button">Surprise me <span aria-hidden="true">✦</span></button>
-            <button class="btn btn-ghost" id="studioSend" type="button">Request this design <span aria-hidden="true">›</span></button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- ============ PRESS-ONS ============ -->
   <section class="pressons section" id="press-ons">
     <div class="shell">
       <header class="section-head reveal">
         <p class="eyebrow">Made with love</p>
         <h2 class="h2-mixed">Custom <span class="script">Press-Ons</span></h2>
-        <p class="section-sub">Hand-painted sets, sized to fit and made to order.</p>
+        <p class="section-sub">Hand-painted sets, sized to fit and made to order. Not sure which one? Send your idea and I'll help you pick.</p>
       </header>
 
       <div class="press-grid">
         <article class="press-card reveal">
+          <span class="press-selected" hidden>✓ Selected</span>
           <h3>The Everyday Set</h3>
+          <p class="press-price"><span class="press-cur">$</span>10–15</p>
           <p class="press-desc">Soft blush base with a clean french tip. Goes with work, weekends and everything in between.</p>
           <ul class="press-list">
-            <li>10 nails + glue tabs</li>
+            <li>One solid colour, french tips or soft ombré</li>
+            <li>Glossy or matte finish</li>
             <li>Short, medium or long</li>
-            <li>Ready in about a week</li>
           </ul>
-          <a class="btn btn-ghost" href="#contact">Ask about this set <span aria-hidden="true">›</span></a>
+          <a class="btn btn-ghost" href="#contact" data-tier="The Everyday Set ($10–15)">Ask about this set <span aria-hidden="true">›</span></a>
         </article>
 
         <article class="press-card reveal is-feature">
           <span class="press-tag">Most requested</span>
+          <span class="press-selected" hidden>✓ Selected</span>
           <h3>The Polka Party</h3>
+          <p class="press-price"><span class="press-cur">$</span>15–20</p>
           <p class="press-desc">My signature: pink base, dotted tips and a tiny gold line on the accent nail.</p>
           <ul class="press-list">
-            <li>10 nails + glue tabs</li>
+            <li>Hand-painted art on two or three nails</li>
             <li>Choose your dot colour</li>
             <li>Matching mini heart nail</li>
           </ul>
-          <a class="btn btn-primary" href="#contact">Ask about this set <span aria-hidden="true">›</span></a>
+          <a class="btn btn-ghost" href="#contact" data-tier="The Polka Party ($15–20)">Ask about this set <span aria-hidden="true">›</span></a>
         </article>
 
         <article class="press-card reveal">
+          <span class="press-selected" hidden>✓ Selected</span>
           <h3>The Dream Design</h3>
+          <p class="press-price"><span class="press-from">from</span> <span class="press-cur">$</span>20</p>
           <p class="press-desc">Bring your own idea — a favourite colour, a character, a birthday theme — and we design it together.</p>
           <ul class="press-list">
+            <li>Detailed art, charms, gems or foil</li>
             <li>Sketch sent for approval</li>
-            <li>Any colour combination</li>
             <li>One free tweak included</li>
           </ul>
-          <a class="btn btn-ghost" href="#contact">Ask about this set <span aria-hidden="true">›</span></a>
+          <a class="btn btn-ghost" href="#contact" data-tier="The Dream Design (from $20)">Ask about this set <span aria-hidden="true">›</span></a>
         </article>
       </div>
+
+      <div class="price-extras reveal">
+        <p class="price-extras-title">Add-ons</p>
+        <ul class="price-extras-list">
+          <li><strong>+$3</strong> Extra-long length</li>
+          <li><strong>+$2</strong> Charms or gems per nail</li>
+          <li><strong>+$5</strong> Rush order, ready in 3 days</li>
+        </ul>
+      </div>
+
+      <p class="price-footnote">Every set is ten nails with glue tabs and a mini file, ready in about a week. Shipping is worked out when we chat.</p>
     </div>
   </section>
 
@@ -369,20 +298,27 @@
       <div class="contact-copy reveal">
         <p class="eyebrow">Say hello</p>
         <h2 class="h2-mixed">Request a <span class="script">Design</span></h2>
-        <p>Tell me what you'd love on your nails and I'll sketch something up. Share your colours, the occasion and any inspiration you've saved — the more detail, the better the set.</p>
+        <p>Tell me what you'd love on your nails and I'll sketch something up. Share your colours, the occasion and any inspiration you've saved! The more detail, the better the set.</p>
         <ul class="contact-list">
-          <li><strong>Email</strong> hello@nailsbysam.example</li>
+          <li><strong>Email</strong>mannu99@hotmail.com</li>
           <li><strong>Reply time</strong> usually a few days</li>
         </ul>
       </div>
 
-      <form class="contact-form reveal" id="requestForm" name="design-request" method="POST" data-netlify="true" netlify-honeypot="company">
-        <input type="hidden" name="form-name" value="design-request" />
-        <p class="hp"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off" /></label></p>
+      <form class="contact-form reveal" id="requestForm" name="nail-design-requests" method="POST" action="/success.html" data-netlify="true" netlify-honeypot="company">
+        <input type="hidden" name="form-name" value="nail-design-requests" />
+        <p class="hp" aria-hidden="true"><label for="company">Leave this empty</label><input id="company" name="company" type="text" tabindex="-1" autocomplete="off" /></p>
+
+        <div class="chosen-set" id="chosenSet" hidden>
+          <span class="chosen-label">Asking about</span>
+          <span class="chosen-name" id="chosenName"></span>
+          <button type="button" class="chosen-clear" id="chosenClear" aria-label="Clear the selected set">×</button>
+        </div>
+        <input type="hidden" id="tier" name="tier" value="" />
 
         <div class="field">
           <label for="name">Your name</label>
-          <input id="name" name="name" type="text" required maxlength="40" autocomplete="name" />
+          <input id="name" name="name" type="text" required minlength="2" maxlength="40" autocomplete="name" />
         </div>
 
         <div class="field">
@@ -392,20 +328,22 @@
 
         <div class="field">
           <label for="idea">Design idea</label>
-          <input id="idea" name="idea" type="text" maxlength="80" placeholder="e.g. lavender almond nails with gold stripes" />
+          <input id="idea" name="idea" type="text" required minlength="5" maxlength="80" aria-describedby="ideaHint" placeholder="e.g. lavender almond nails with gold stripes" />
+          <p class="field-hint" id="ideaHint">One line is plenty! Shape, colours, or an occasion.</p>
         </div>
 
         <div class="field">
-          <label for="message">Anything else?</label>
-          <textarea id="message" name="message" rows="4" maxlength="600" placeholder="Colours you love, an occasion, a date…"></textarea>
+          <label for="message">Anything else? <span class="field-optional">Optional</span></label>
+          <textarea id="message" name="message" rows="4" maxlength="600" aria-describedby="messageHint" placeholder="Colours you love, an occasion, a date…"></textarea>
+          <div class="field-foot">
+            <p class="field-hint" id="messageHint">Up to 600 characters.</p>
+            <p class="field-count" id="messageCount" aria-hidden="true"></p>
+          </div>
         </div>
 
-        <label class="check">
-          <input type="checkbox" id="consent" name="consent" required />
-          <span>Okay to reply to me by email about this request.</span>
-        </label>
+        <p class="form-privacy">Your email is only used to reply about this request! Never shared, never added to a mailing list.</p>
 
-        <button class="btn btn-primary" type="submit">Send my request <span aria-hidden="true">›</span></button>
+        <button class="btn btn-primary" type="submit" id="submitBtn">Send my request <span aria-hidden="true">›</span></button>
         <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -423,7 +361,6 @@
       <ul class="footer-nav">
         <li><a href="#about">About</a></li>
         <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#studio">Designs</a></li>
         <li><a href="#press-ons">Press-Ons</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
