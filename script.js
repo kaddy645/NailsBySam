@@ -63,17 +63,30 @@
 
   /* ---------- reveal on scroll ---------- */
   var revealables = $$('.reveal');
+
+  var revealAll = function () {
+    revealables.forEach(function (el) { el.classList.add('is-visible'); });
+  };
+
   if ('IntersectionObserver' in window) {
+    var revealed = 0;
     var revealer = new IntersectionObserver(function (entries, obs) {
       entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
         entry.target.classList.add('is-visible');
+        revealed++;
         obs.unobserve(entry.target);
       });
     }, { threshold: 0.12 });
     revealables.forEach(function (el) { revealer.observe(el); });
+
+    // Backgrounded or throttled tabs may never run the callback. Never leave
+    // the page blank because of an animation.
+    window.setTimeout(function () {
+      if (revealed === 0) revealAll();
+    }, 2500);
   } else {
-    revealables.forEach(function (el) { el.classList.add('is-visible'); });
+    revealAll();
   }
 
   /* ---------- graceful placeholder until real photos exist ---------- */
@@ -167,187 +180,139 @@
     if (e.key === 'ArrowRight') showAt(currentIndex + 1);
   });
 
-  /* ============================================================
-     DESIGN STUDIO
-     ============================================================ */
-  var nailGroup = $('#nailGroup');
-  var readout = $('#studioReadout');
+  /* ---------- set CTAs show the choice as a badge on the form ---------- */
+  var tierField = $('#tier');
+  var chosenSet = $('#chosenSet');
+  var chosenName = $('#chosenName');
+  var chosenClear = $('#chosenClear');
 
-  var state = { shape: 'almond', color: '#f2c7d2', finish: 'plain' };
-
-  var SHAPE_LABELS = { almond: 'Almond', square: 'Square', coffin: 'Coffin', round: 'Round' };
-  var FINISH_LABELS = { plain: 'glossy', dots: 'polka dot', sparkle: 'sparkle', stripes: 'gold striped' };
-  var COLOR_LABELS = {
-    '#f2c7d2': 'ballet pink',
-    '#e8a0b8': 'bubblegum',
-    '#c9b6e4': 'lavender',
-    '#f6e7d8': 'nude',
-    '#a7cfd6': 'mint blue',
-    '#8a4f72': 'plum'
-  };
-
-  // Five nails laid out like a relaxed hand.
-  var FINGERS = [
-    { x: 26, y: 112, w: 30, h: 56, rot: -16 },
-    { x: 74, y: 82, w: 34, h: 64, rot: -8 },
-    { x: 128, y: 66, w: 36, h: 70, rot: 0 },
-    { x: 184, y: 80, w: 34, h: 66, rot: 8 },
-    { x: 238, y: 128, w: 38, h: 62, rot: 24 }
-  ];
-
-  function nailPath(f, shape) {
-    var x = f.x, y = f.y, w = f.w, h = f.h;
-    var r = w / 2;
-    var bottom = y + h;
-    var cuticle = 'Q ' + (x + r) + ' ' + (bottom + 8) + ' ' + x + ' ' + bottom + ' Z';
-
-    if (shape === 'square') {
-      return 'M ' + x + ' ' + bottom +
-        ' L ' + x + ' ' + (y + 7) +
-        ' Q ' + x + ' ' + y + ' ' + (x + 7) + ' ' + y +
-        ' L ' + (x + w - 7) + ' ' + y +
-        ' Q ' + (x + w) + ' ' + y + ' ' + (x + w) + ' ' + (y + 7) +
-        ' L ' + (x + w) + ' ' + bottom + ' ' + cuticle;
-    }
-    if (shape === 'round') {
-      return 'M ' + x + ' ' + bottom +
-        ' L ' + x + ' ' + (y + r) +
-        ' Q ' + x + ' ' + y + ' ' + (x + r) + ' ' + y +
-        ' Q ' + (x + w) + ' ' + y + ' ' + (x + w) + ' ' + (y + r) +
-        ' L ' + (x + w) + ' ' + bottom + ' ' + cuticle;
-    }
-    if (shape === 'coffin') {
-      return 'M ' + x + ' ' + bottom +
-        ' L ' + (x + w * 0.12) + ' ' + (y + h * 0.22) +
-        ' L ' + (x + w * 0.3) + ' ' + y +
-        ' L ' + (x + w * 0.7) + ' ' + y +
-        ' L ' + (x + w * 0.88) + ' ' + (y + h * 0.22) +
-        ' L ' + (x + w) + ' ' + bottom + ' ' + cuticle;
-    }
-    // almond
-    return 'M ' + x + ' ' + bottom +
-      ' L ' + (x + w * 0.06) + ' ' + (y + h * 0.42) +
-      ' Q ' + (x + r) + ' ' + (y - h * 0.06) + ' ' + (x + w * 0.94) + ' ' + (y + h * 0.42) +
-      ' L ' + (x + w) + ' ' + bottom + ' ' + cuticle;
-  }
-
-  function render() {
-    var markup = FINGERS.map(function (f, i) {
-      var clipId = 'clip' + i;
-      var d = nailPath(f, state.shape);
-      var cx = f.x + f.w / 2;
-      var cy = f.y + f.h / 2;
-
-      var overlay = '';
-      if (state.finish === 'dots') {
-        overlay =
-          '<rect x="' + f.x + '" y="' + f.y + '" width="' + f.w + '" height="' + (f.h * 0.42).toFixed(1) + '" fill="#ffffff" clip-path="url(#' + clipId + ')"/>' +
-          '<rect x="' + f.x + '" y="' + f.y + '" width="' + f.w + '" height="' + (f.h * 0.42).toFixed(1) + '" fill="url(#dots)" clip-path="url(#' + clipId + ')"/>';
-      } else if (state.finish === 'sparkle') {
-        overlay = '<rect x="' + f.x + '" y="' + f.y + '" width="' + f.w + '" height="' + f.h + '" fill="url(#sparkle)" clip-path="url(#' + clipId + ')"/>';
-      } else if (state.finish === 'stripes') {
-        overlay = '<rect x="' + f.x + '" y="' + (f.y + f.h * 0.45).toFixed(1) + '" width="' + f.w + '" height="7" fill="url(#stripes)" clip-path="url(#' + clipId + ')"/>';
+  if (tierField && chosenSet) {
+    var setChoice = function (name) {
+      tierField.value = name || '';
+      chosenName.textContent = name || '';
+      chosenSet.hidden = !name;
+      if (name) {
+        chosenSet.classList.remove('is-new');
+        void chosenSet.offsetWidth; // restart the highlight animation
+        chosenSet.classList.add('is-new');
       }
 
-      return '<g transform="rotate(' + f.rot + ' ' + cx + ' ' + cy + ')">' +
-        '<clipPath id="' + clipId + '"><path d="' + d + '"/></clipPath>' +
-        '<path d="' + d + '" fill="' + state.color + '" stroke="rgba(59,43,51,.18)" stroke-width="1"/>' +
-        overlay +
-        '<path d="' + d + '" fill="url(#shine)"/>' +
-        '</g>';
-    }).join('');
+      $$('.press-card').forEach(function (card) {
+        var link = $('a[data-tier]', card);
+        var picked = !!name && link && link.dataset.tier === name;
+        var badge = $('.press-selected', card);
+        card.classList.toggle('is-selected', picked);
+        if (badge) badge.hidden = !picked;
+        if (link) {
+          if (picked) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
+        }
+      });
+    };
 
-    nailGroup.innerHTML = markup;
-    readout.textContent = SHAPE_LABELS[state.shape] + ' nails in ' +
-      (COLOR_LABELS[state.color] || state.color) + ', ' + FINISH_LABELS[state.finish] + ' finish.';
+    $$('a[data-tier]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        setChoice(btn.dataset.tier);
+        window.setTimeout(function () { $('#name').focus({ preventScroll: true }); }, 600);
+      });
+    });
+
+    chosenClear.addEventListener('click', function () {
+      setChoice('');
+      $('#idea').focus();
+    });
   }
 
-  $$('.opt-row').forEach(function (row) {
-    var group = row.dataset.group;
-    row.addEventListener('click', function (e) {
-      var btn = e.target.closest('button');
-      if (!btn || !row.contains(btn)) return;
+  /* ---------- live character counter ---------- */
+  var message = $('#message');
+  var messageCount = $('#messageCount');
 
-      var value = btn.dataset.value;
-      if (group === 'color' && !/^#[0-9a-f]{6}$/i.test(value)) return;
-
-      Array.prototype.forEach.call(row.children, function (child) {
-        var active = child === btn;
-        child.classList.toggle('is-active', active);
-        child.setAttribute('aria-pressed', String(active));
-      });
-      state[group] = value;
-      render();
-    });
-  });
-
-  $('#studioSurprise').addEventListener('click', function () {
-    var pick = function (row) {
-      var options = $$('button', row);
-      return options[Math.floor(Math.random() * options.length)];
+  if (message && messageCount) {
+    var limit = message.maxLength;
+    var updateCount = function () {
+      var used = message.value.length;
+      messageCount.textContent = used + ' / ' + limit;
+      messageCount.classList.toggle('is-near', used >= limit - 50);
     };
-    $$('.opt-row').forEach(function (row) {
-      var chosen = pick(row);
-      Array.prototype.forEach.call(row.children, function (child) {
-        var active = child === chosen;
-        child.classList.toggle('is-active', active);
-        child.setAttribute('aria-pressed', String(active));
-      });
-      state[row.dataset.group] = chosen.dataset.value;
+    message.addEventListener('input', updateCount);
+    // reset fires before the value clears
+    message.form.addEventListener('reset', function () {
+      window.setTimeout(updateCount, 0);
     });
-    render();
-  });
-
-  $('#studioSend').addEventListener('click', function () {
-    var idea = $('#idea');
-    idea.value = SHAPE_LABELS[state.shape].toLowerCase() + ' nails in ' +
-      (COLOR_LABELS[state.color] || state.color) + ' with a ' + FINISH_LABELS[state.finish] + ' finish';
-    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-    window.setTimeout(function () { $('#name').focus(); }, 500);
-  });
-
-  render();
+    updateCount();
+  }
 
   /* ============================================================
      CONTACT FORM
-     Posts to Netlify Forms when hosted there; falls back to a
-     mailto handoff on static hosts like GitHub Pages.
+     Sends to Netlify over fetch, then forwards to the page named
+     in the form's action. Without JS the browser does the same
+     thing natively.
      ============================================================ */
   var form = $('#requestForm');
   var status = $('#formStatus');
+  var submitBtn = $('#submitBtn');
+  var submitting = false;
+
+  // Netlify accepts submissions on any path; action is the redirect target.
+  var ENDPOINT = '/';
+  var successUrl = form.getAttribute('action');
+
+  var setStatus = function (text, state) {
+    status.className = 'form-status' + (state ? ' is-' + state : '');
+    status.textContent = text;
+  };
+
+  var onSuccess = function () {
+    form.reset();
+    if (successUrl) {
+      window.location.assign(successUrl);
+      return;
+    }
+    setStatus('Thank you! Your request is on its way. Sam will reply soon.', 'ok');
+  };
+
+  // Leaves the fields filled so nothing typed is lost.
+  var fail = function (message) {
+    setStatus(message, 'error');
+    submitting = false;
+    submitBtn.disabled = false;
+  };
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-
-    if (!form.reportValidity()) return;
+    if (submitting) return;
 
     var data = new FormData(form);
-    if (data.get('company')) return; // honeypot tripped
 
-    status.className = 'form-status';
-    status.textContent = 'Sending…';
+    // Bots fill the hidden field. Mimic success rather than reveal the trap.
+    if (data.get('company')) {
+      onSuccess();
+      return;
+    }
 
-    fetch('/', {
+    submitting = true;
+    submitBtn.disabled = true;
+    setStatus('Sending…');
+
+    fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams(data).toString()
     })
       .then(function (res) {
-        if (!res.ok) throw new Error('Form endpoint unavailable');
-        status.className = 'form-status is-ok';
-        status.textContent = 'Thank you! Your request is on its way. Sam will reply soon.';
-        form.reset();
+        if (res.ok) {
+          onSuccess();
+          return;
+        }
+        // 404 = Netlify has not detected the form yet. 405/501 = the host does
+        // not accept POST at all, which is the case on any plain static server.
+        var unsupported = res.status === 405 || res.status === 501;
+        fail(unsupported
+          ? 'This form only works on the live site — the preview server cannot receive submissions.'
+          : 'Sorry — that did not send. Please try again in a moment.');
       })
       .catch(function () {
-        var subject = 'Design request from ' + (data.get('name') || 'a new client');
-        var body = 'Name: ' + data.get('name') + '\n' +
-          'Email: ' + data.get('email') + '\n' +
-          'Design idea: ' + (data.get('idea') || '—') + '\n\n' +
-          (data.get('message') || '');
-        status.className = 'form-status is-ok';
-        status.textContent = 'Opening your email app so you can send this request.';
-        window.location.href = 'mailto:hello@nailsbysam.example?subject=' +
-          encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        fail('Sorry — that did not send. Please check your connection and try again.');
       });
   });
 })();
