@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Request received — Nails by Sam</title>
+<meta name="description" content="Your nail design request has been received." />
+<meta name="theme-color" content="#8a4f72" />
+<meta name="robots" content="noindex" />
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%92%85%3C/text%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&family=Parisienne&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<main class="success-wrap" id="main">
+  <div class="success-bg" aria-hidden="true">
+    <div class="brush brush-a"></div>
+    <div class="brush brush-b"></div>
+  </div>
+
+  <article class="success-card">
+    <span class="success-sparkle" aria-hidden="true">✦</span>
+
+    <a class="logo logo-success" href="index.html" aria-label="Nails by Sam — home">
+      <span class="logo-script">Nails<span class="logo-heart" aria-hidden="true">♡</span></span>
+      <span class="logo-sub">by Sam</span>
+    </a>
+
+    <h1 class="h2-mixed">Request <span class="script">Received</span></h1>
+
+    <p>Your design idea just landed in my sketchbook. Thank you for trusting me with it.</p>
+    <p class="success-next"><strong>What happens next</strong> I'll sketch a preview and email it over in the next few days! Keep an eye on your inbox.</p>
+
+    <a class="btn btn-primary" href="index.html">Back to the gallery <span aria-hidden="true">›</span></a>
+
+    <section class="game" aria-label="Matching game">
+      <button class="game-toggle" id="gameToggle" type="button" aria-expanded="false" aria-controls="gamePanel">
+        <span class="game-toggle-icon" aria-hidden="true">
+          <span class="mini-card mc-1"></span>
+          <span class="mini-card mc-2"></span>
+          <span class="mini-card mc-3"></span>
+        </span>
+        <span class="game-toggle-text">
+          <span class="game-toggle-title">While you wait<span class="script">…</span></span>
+          <span class="game-toggle-sub">Play a quick matching game</span>
+        </span>
+        <span class="game-toggle-chev" aria-hidden="true">›</span>
+      </button>
+
+      <div class="game-panel" id="gamePanel" hidden>
+        <h2 class="game-heading">Match the pairs</h2>
+        <p class="game-status" id="gameStatus" role="status" aria-live="polite"></p>
+        <ul class="game-grid" id="gameGrid"></ul>
+        <button class="btn btn-ghost game-reset" id="gameReset" type="button">Shuffle again</button>
+      </div>
+    </section>
+  </article>
+</main>
+
+<script src="success.js"></script>
+</body>
+</html>
