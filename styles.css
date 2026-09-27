@@ -47,7 +47,6 @@ body {
   font-size: 1rem;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
 img { max-width: 100%; display: block; }
@@ -144,6 +143,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
 }
 .btn:hover { transform: translateY(-2px); }
+.btn:disabled { opacity: 0.55; cursor: progress; transform: none; }
 
 .btn-primary { background: var(--plum); color: #fff; box-shadow: var(--shadow-sm); }
 .btn-primary:hover { background: var(--plum-dark); box-shadow: var(--shadow-md); }
@@ -332,7 +332,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
 .quick-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
 
@@ -520,80 +520,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 
 /* ============================================================
-   DESIGN STUDIO
-   ============================================================ */
-.studio { background: linear-gradient(180deg, var(--blush), var(--cream) 55%, var(--lilac)); }
-
-.studio-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: clamp(1.5rem, 4vw, 3rem);
-  align-items: center;
-}
-
-.studio-preview {
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: clamp(1.25rem, 3vw, 2.25rem);
-  box-shadow: var(--shadow-sm);
-}
-.studio-preview svg { width: 100%; height: auto; }
-
-.studio-readout {
-  margin: 1rem 0 0;
-  text-align: center;
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
-  letter-spacing: 0.05em;
-  color: var(--ink-soft);
-}
-
-.studio-controls fieldset {
-  margin: 0 0 1.5rem;
-  padding: 0;
-  border: 0;
-}
-.studio-controls legend {
-  padding: 0 0 0.7rem;
-  font-size: 0.8rem;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-}
-
-.opt-row { display: flex; flex-wrap: wrap; gap: 0.55rem; }
-
-.opt {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--tap);
-  padding: 0.55rem 1.2rem;
-  border: 1px solid var(--line);
-  border-radius: 99px;
-  background: rgba(255, 255, 255, 0.8);
-  font-size: 0.8rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
-}
-.opt:hover { border-color: var(--plum); }
-.opt.is-active { background: var(--plum); border-color: var(--plum); color: #fff; }
-
-.swatch {
-  width: var(--tap); height: var(--tap);
-  border-radius: 50%;
-  border: 2px solid rgba(255, 255, 255, 0.9);
-  background: var(--sw);
-  box-shadow: 0 0 0 1px var(--line);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.swatch:hover { transform: scale(1.08); }
-.swatch.is-active { box-shadow: 0 0 0 2px var(--plum); transform: scale(1.08); }
-
-.studio-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
-
-/* ============================================================
    PRESS-ONS
    ============================================================ */
 .pressons { background: var(--lilac); }
@@ -619,6 +545,38 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .press-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
 .press-card.is-feature { background: #fff; }
 
+.press-card.is-selected {
+  background: #fff;
+  border-color: var(--plum);
+  box-shadow: 0 0 0 2px var(--plum), var(--shadow-md);
+}
+
+.press-selected {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid var(--lilac-deep);
+  border-radius: 99px;
+  background: linear-gradient(120deg, var(--blush), var(--lilac));
+  color: var(--ink);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  animation: chosen-pop 0.4s ease-out;
+}
+.press-selected[hidden] { display: none; }
+
+/* The chosen card's call to action fills in, whichever variant it started as. */
+.press-card.is-selected .btn {
+  background: var(--plum);
+  border-color: var(--plum);
+  color: #fff;
+}
+.press-card.is-selected .btn:hover { background: var(--plum-dark); border-color: var(--plum-dark); }
+
 .press-tag {
   position: absolute;
   top: -0.8rem; left: clamp(1.75rem, 3vw, 2.4rem);
@@ -632,12 +590,63 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 
 .press-card h3 {
-  margin: 0 0 0.6rem;
+  margin: 0 0 0.35rem;
   font-family: var(--font-serif);
   font-weight: 500;
   font-size: 1.5rem;
 }
+
+.press-price {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2.1rem, 4vw, 2.7rem);
+  line-height: 1;
+  color: var(--plum);
+}
+.press-cur { font-size: 0.5em; vertical-align: super; margin-right: 0.08em; }
+.press-from {
+  font-family: var(--font-sans);
+  font-size: 0.4em;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  vertical-align: middle;
+  margin-right: 0.2em;
+}
+
 .press-desc { margin: 0 0 1.25rem; color: var(--ink-soft); }
+
+.price-extras {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 1px dashed var(--lilac-deep);
+  border-radius: var(--radius);
+  text-align: center;
+}
+.price-extras-title {
+  margin: 0 0 0.9rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.price-extras-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem 2rem;
+}
+.price-extras-list li { font-size: 0.95rem; color: var(--ink-soft); }
+.price-extras-list strong { color: var(--plum); font-weight: 600; margin-right: 0.3rem; }
+
+.price-footnote {
+  margin: 1.5rem 0 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
 
 .press-list { margin-bottom: 1.75rem; }
 .press-list li {
@@ -650,6 +659,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
   content: "♡";
   position: absolute;
   left: 0;
+  color: var(--lilac-deep);
+  transition: color 0.25s ease;
+}
+.press-card.is-selected .press-list li::before {
+  content: "♥";
   color: var(--lilac-deep);
 }
 
@@ -701,7 +715,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
   text-transform: uppercase;
   color: var(--ink-soft);
 }
-.field input, .field textarea {
+.field input, .field textarea, .field select {
   width: 100%;
   min-height: var(--tap);
   padding: 0.85rem 1rem;
@@ -715,10 +729,100 @@ button { font: inherit; color: inherit; cursor: pointer; }
 }
 .field ::placeholder { color: #6c5c64; opacity: 1; }
 .field textarea { resize: vertical; min-height: 110px; }
-.field input:focus, .field textarea:focus {
+.field select { cursor: pointer; }
+.field input:focus, .field textarea:focus, .field select:focus {
   outline: none;
   border-color: var(--plum);
   background: #fff;
+}
+
+/* :user-invalid only styles after the visitor has interacted, unlike :invalid
+   which would flag every empty required field on page load. */
+.field input:user-invalid,
+.field textarea:user-invalid {
+  border-color: #b23b5e;
+  background: #fdf6f8;
+}
+
+.field-hint {
+  margin: 0.4rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+
+.field-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+.field-count {
+  margin: 0.4rem 0 0;
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.field-count.is-near { color: var(--plum); font-weight: 500; }
+
+.field-optional {
+  margin-left: 0.4rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  opacity: 0.8;
+}
+
+/* ---------- selected set badge ---------- */
+.chosen-set {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--lilac-deep);
+  border-radius: 12px;
+  background: linear-gradient(120deg, rgba(247, 233, 238, 0.9), rgba(227, 220, 240, 0.9));
+}
+.chosen-set[hidden] { display: none; }
+
+.chosen-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.chosen-name {
+  flex: 1;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--ink);
+}
+
+.chosen-clear {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--ink-soft);
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.chosen-clear:hover { background: var(--plum); color: #fff; }
+
+.chosen-set.is-new { animation: chosen-pop 0.5s ease-out; }
+
+@keyframes chosen-pop {
+  0% { transform: scale(0.97); border-color: var(--plum); }
+  50% { border-color: var(--plum); }
+  100% { transform: none; }
 }
 
 .check {
@@ -736,6 +840,13 @@ button { font: inherit; color: inherit; cursor: pointer; }
   width: 1.5rem;
   height: 1.5rem;
   accent-color: var(--plum);
+}
+
+.form-privacy {
+  margin: 0.5rem 0 1.5rem;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
 }
 
 .hp { position: absolute; left: -9999px; }
@@ -835,6 +946,234 @@ img.is-missing {
 .lb-figure img.is-missing { width: min(560px, 80vw); height: 60vh; }
 
 /* ============================================================
+   SUCCESS PAGE
+   ============================================================ */
+.success-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+  place-items: safe center; /* tall content must never overflow above the scroll origin */
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 2rem 1.25rem;
+  background: linear-gradient(160deg, var(--blush) 0%, var(--cream) 45%, var(--lilac) 100%);
+}
+
+/* Clipping lives here, not on the wrapper — a full-height overflow:hidden
+   ancestor swallows touch scrolling on iOS. */
+.success-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.success-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 34rem);
+  padding: clamp(2rem, 6vw, 3.5rem);
+  text-align: center;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  animation: pop-in 0.5s ease-out both;
+}
+
+.success-sparkle {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 1.75rem;
+  color: var(--lilac-deep);
+  animation: twinkle 2.6s ease-in-out infinite;
+}
+
+.logo-success { display: inline-block; margin-bottom: 1.75rem; }
+
+.success-card h1 { margin-bottom: 1.25rem; }
+.success-card p { margin: 0 0 1rem; color: var(--ink-soft); }
+
+.success-next strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.success-card .btn { margin-top: 1.25rem; }
+
+@keyframes pop-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+  50% { opacity: 0.55; transform: scale(0.85) rotate(45deg); }
+}
+
+/* ---------- success page: matching game ---------- */
+.game { margin-top: 2.25rem; border-top: 1px solid var(--line); padding-top: 1.5rem; }
+
+.game-toggle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  min-height: 4.5rem;
+  padding: 0.9rem 1.1rem;
+  text-align: left;
+  background: linear-gradient(120deg, rgba(247, 233, 238, 0.9), rgba(227, 220, 240, 0.9));
+  border: 2px dashed var(--lilac-deep);
+  border-radius: var(--radius);
+  color: var(--ink);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+.game-toggle:hover {
+  transform: translateY(-2px);
+  border-color: var(--plum);
+  box-shadow: var(--shadow-sm);
+}
+
+.game-toggle-icon {
+  flex: none;
+  display: flex;
+  gap: 3px;
+}
+.mini-card {
+  width: 15px;
+  height: 22px;
+  border-radius: 99px 99px 3px 3px;
+  box-shadow: 0 1px 4px rgba(106, 60, 88, 0.18);
+}
+.mc-1 { background: #f2c7d2; transform: rotate(-9deg); }
+.mc-2 { background: #c9b6e4; }
+.mc-3 { background: #8a4f72; transform: rotate(9deg); }
+.game-toggle:hover .mc-1 { transform: rotate(-16deg); }
+.game-toggle:hover .mc-3 { transform: rotate(16deg); }
+.mini-card { transition: transform 0.25s ease; }
+
+.game-toggle-text { display: flex; flex-direction: column; flex: 1; }
+.game-toggle-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+.game-toggle-title .script { font-size: 1.3em; }
+.game-toggle-sub {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.game-toggle-chev {
+  flex: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--plum);
+  transition: transform 0.3s ease;
+}
+.game-toggle[aria-expanded="true"] .game-toggle-chev { transform: rotate(90deg); }
+.game-toggle[aria-expanded="true"] { border-style: solid; border-color: var(--plum); }
+
+.game-heading {
+  margin: 0.75rem 0 0.35rem;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+.game-status { min-height: 1.5rem; margin: 0 0 1rem; font-size: 0.9rem; color: var(--ink-soft); }
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.card {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  min-height: var(--tap);
+  padding: 0;
+  border: 0;
+  background: none;
+  perspective: 600px;
+}
+
+.card-inner {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s ease;
+  transform-style: preserve-3d;
+}
+.card.is-up .card-inner { transform: rotateY(180deg); }
+
+.card-back, .card-front {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 999px 999px 10px 10px;
+  backface-visibility: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.card-back {
+  background: linear-gradient(150deg, var(--lilac-deep), var(--blush-deep));
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.3rem;
+}
+.card-front { transform: rotateY(180deg); }
+
+.card.is-matched { opacity: 0.55; }
+.card:disabled { cursor: default; }
+
+.face-blush {
+  background-color: #f2c7d2;
+  background-image: radial-gradient(circle, #2c2129 1.6px, transparent 1.7px);
+  background-size: 11px 11px;
+}
+.face-lavender {
+  background-color: #c9b6e4;
+  background-image: radial-gradient(circle at 30% 25%, #fff 1.4px, transparent 1.5px),
+                    radial-gradient(circle at 70% 65%, #fff 2px, transparent 2.1px);
+  background-size: 14px 14px;
+}
+.face-nude {
+  background-color: #f6e7d8;
+  background-image: linear-gradient(115deg, transparent 44%, #d9b25f 44%, #d9b25f 56%, transparent 56%);
+}
+.face-plum { background-color: #8a4f72; }
+.face-plum::after { content: "\2661"; color: rgba(255, 255, 255, 0.92); font-size: 1.2rem; }
+
+.game-reset { padding: 0.7rem 1.4rem; font-size: 0.7rem; }
+
+@media (max-width: 420px) {
+  .game-grid { gap: 0.45rem; }
+}
+
+/* Centring wastes the top of a phone screen, so start the card near the top. */
+@media (max-width: 600px) {
+  .success-wrap {
+    align-items: start;
+    padding: 1.25rem 1rem 1rem;
+  }
+  .success-card { padding: 1.75rem 1.25rem 1rem; }
+  .logo-success { margin-bottom: 1.25rem; }
+  .success-sparkle { margin-bottom: 0.15rem; font-size: 1.5rem; }
+  .success-card h1 { margin-bottom: 1rem; }
+}
+
+/* ============================================================
    REVEAL ANIMATION
    ============================================================ */
 /* Scoped to .js so the page is never blank if the script fails to load. */
@@ -849,7 +1188,7 @@ img.is-missing {
    RESPONSIVE
    ============================================================ */
 @media (max-width: 980px) {
-  .hero-grid, .studio-grid, .contact-grid { grid-template-columns: 1fr; }
+  .hero-grid, .contact-grid { grid-template-columns: 1fr; }
   .about-grid { grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr); }
   .about-portrait { grid-row: span 2; }
   .hero-media { order: -1; }
@@ -891,7 +1230,6 @@ img.is-missing {
 @media (max-width: 420px) {
   .quick-grid { grid-template-columns: 1fr; }
   .quick-card::before { display: none; }
-  .swatch { width: 38px; height: 38px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
